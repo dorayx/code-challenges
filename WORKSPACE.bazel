@@ -1,6 +1,12 @@
+# Declares that this directory is the root of a Bazel workspace.
+# See https://docs.bazel.build/versions/master/build-ref.html#workspace
+workspace(
+    # How this workspace would be referenced with absolute labels from another workspace
+    name = "coding-challenges-15days",
+)
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# Loads the `rules_rust` repository rule
 # See https://github.com/bazelbuild/rules_rust/releases
 http_archive(
     name = "rules_rust",
@@ -8,15 +14,66 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.27.0/rules_rust-v0.27.0.tar.gz"],
 )
 
-# Loads the `rules_rust_dependencies` and `rust_register_toolchains` function definitions
+http_archive(
+    name = "aspect_bazel_lib",
+    sha256 = "0da75299c5a52737b2ac39458398b3f256e41a1a6748e5457ceb3a6225269485",
+    strip_prefix = "bazel-lib-1.31.2",
+    url = "https://github.com/aspect-build/bazel-lib/releases/download/v1.31.2/bazel-lib-v1.31.2.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "7ab2fbe6d79fb3909ad2bf6dcacfae39adcb31c514efa239dd730b4f147c8097",
+    strip_prefix = "rules_js-1.32.1",
+    url = "https://github.com/aspect-build/rules_js/releases/download/v1.32.1/rules_js-v1.32.1.tar.gz",
+)
+
 load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
 
-# Adds the necessary dependencies for the Rust rules
 rules_rust_dependencies()
 
-# Registers Rust toolchains with the given versions and editions
 rust_register_toolchains(
-    # Specifies the Rust edition to use for the registered toolchains
     edition = "2021",
     versions = ["1.72.0"],
 )
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+# Loads the `DEFAULT_NODE_VERSION` and `nodejs_register_toolchains` function definition
+load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    use_nvmrc = "@//:.nvmrc",
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+# Uses Bazel's downloader to fetch the packages
+# See https://docs.aspect.build/rules/aspect_rules_js/docs/npm_translate_lock
+npm_translate_lock(
+    name = "npm",
+    data = [
+        "@//:challenges/day-02/package.json",
+        "@//:package.json",
+        "@//:pnpm-workspace.yaml",
+    ],
+    npmrc = "@//:.npmrc",
+    pnpm_lock = "@//:pnpm-lock.yaml",
+    # Required for ESLint test targets.
+    # See https://github.com/aspect-build/rules_js/issues/239
+    # See `public-hoist-pattern[]=*eslint*` in the `.npmrc` of this monorepo.
+    public_hoist_packages = {
+        "@typescript-eslint/eslint-plugin": [""],
+        "@typescript-eslint/parser": [""],
+        "eslint-plugin-react-hooks": [""],
+        "eslint-plugin-react-refresh": [""],
+    },
+    update_pnpm_lock = True,
+)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
