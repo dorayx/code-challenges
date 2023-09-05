@@ -10,11 +10,46 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: bazelbuild/setup-bazelisk@v2
-      - uses: actions/cache@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Bazelisk
+        uses: bazelbuild/setup-bazelisk@v2
+
+      - name: Setup bazel cache
+        uses: actions/cache@v3
         with:
           path: "~/.cache/bazel"
           key: bazel
-      - run: bazel build //...
-      - run: bazel test //...
+
+      - name: Install NodeJS dependencies
+        run: pnpm install
+
+      - name: Build with Bazel
+        run: bazel build //...
+
+      - name: Run tests with Bazel
+        run: bazel test //...
