@@ -68,6 +68,13 @@ challenges/day-02/node_modules
 # ...
 ```
 
+3. Update `pnpm-workspace.yaml`
+
+```yaml
+packages:
+  - 'challenges/day-02'
+```
+
 ## References
 
 - Issue: [Support yarn/npm7 workspaces](https://github.com/bazelbuild/rules_nodejs/issues/266#issuecomment-1357040951)
