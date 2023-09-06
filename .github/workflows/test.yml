@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: "~/.cache/bazel"
-          key: bazel
+          key: bazel-linux
 
       - name: Install NodeJS dependencies
         run: pnpm install
@@ -67,6 +67,12 @@ jobs:
 
       - name: Install Bazelisk
         uses: bazelbuild/setup-bazelisk@v2
+
+      - name: Setup bazel cache
+        uses: actions/cache@v3
+        with:
+          path: "~/.cache/bazel"
+          key: bazel-macos
 
       - name: Build with Bazel
         run: bazel build //tools:build_packages --runs_on=macos
