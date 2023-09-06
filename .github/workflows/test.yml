@@ -45,6 +45,11 @@ jobs:
           path: "~/.cache/bazel"
           key: bazel
 
+      - name: Install XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
       - name: Install NodeJS dependencies
         run: pnpm install
 

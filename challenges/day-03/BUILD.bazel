@@ -1,0 +1,38 @@
+load("@build_bazel_rules_apple//apple:versioning.bzl", "apple_bundle_version")
+load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
+load("@build_bazel_rules_apple//apple:macos.bzl", "macos_application")
+
+# The version label for mac_* rules.
+apple_bundle_version(
+    name = "version",
+    build_label_pattern = ".*hellotray_{release}\\.{build}",
+    build_version = "{release}.{build}",
+    capture_groups = {
+        "release": "\\d{4}\\.\\d+",
+        "build": "\\d+",
+    },
+    fallback_build_label = "hellotray_9999.1.1",
+    short_version_string = "{release}",
+)
+
+swift_library(
+    name = "sources",
+    srcs = ["hello-tray-app/hello_tray_appApp.swift"],
+)
+
+macos_application(
+    name = "HelloTray",
+    app_icons = glob(["hello-tray-app/Assets.xcassets/**"]),
+    bundle_id = "dev.doray.hello-tray-app",
+    bundle_name = "HelloTray",
+    codesignopts = [
+        "--timestamp",
+        "--force",
+        "--options library,kill,runtime",
+    ],
+    include_symbols_in_bundle = True,
+    infoplists = ["hello-tray-app.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"],
+    minimum_os_version = "13",
+    version = ":version",
+    deps = [":sources"],
+)
