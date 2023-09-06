@@ -17,3 +17,6 @@ try-import %workspace%/.aspect/bazelrc/user.bazelrc
 
 # Enable bazel hack for autogold; apply to both build & test to avoid busting analysis cache
 build --test_env=ENABLE_BAZEL_PACKAGES_LOAD_HACK=true
+
+# Set build setting aliases for current os
+build --flag_alias=runs_on=//tools:runs_on

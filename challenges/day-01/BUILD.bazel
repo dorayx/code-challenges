@@ -1,9 +1,11 @@
 # Loads the Rust rules and the `rust_binary` & `rust_test` function definitions
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_test")
 
+package(default_visibility = ["//visibility:public"])
+
 # Declares a Rust binary target with the given name
 rust_binary(
-    name = "day_01",
+    name = "build",
 
     # Specifies the source file for the binary
     srcs = glob([
@@ -16,10 +18,10 @@ rust_binary(
 
 # Declares a Rust test target with the given name
 rust_test(
-    name = "day_01_test",
+    name = "ut_test",
 
     # Uses the same crate name as the underlying “:day_01” crate
-    crate = ":day_01",
+    crate = ":build",
 
     # Specifies the Rust edition to use for this test
     edition = "2021",

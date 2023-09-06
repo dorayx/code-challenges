@@ -34,7 +34,7 @@ pnpm --filter day-02 dev
 
 ```bash
 bazel build //challenges/day-02:build
-bazel test //challenges/day-02:test
+bazel test //challenges/day-02:ut_test
 ```
 
 ## Notices

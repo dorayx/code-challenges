@@ -2,6 +2,8 @@ load("@build_bazel_rules_apple//apple:versioning.bzl", "apple_bundle_version")
 load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
 load("@build_bazel_rules_apple//apple:macos.bzl", "macos_application")
 
+package(default_visibility = ["//visibility:public"])
+
 # The version label for mac_* rules.
 apple_bundle_version(
     name = "version",
@@ -21,7 +23,7 @@ swift_library(
 )
 
 macos_application(
-    name = "HelloTray",
+    name = "build",
     app_icons = glob(["hello-tray-app/Assets.xcassets/**"]),
     bundle_id = "dev.doray.hello-tray-app",
     bundle_name = "HelloTray",

@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  test:
+  test-linux:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,16 +45,32 @@ jobs:
           path: "~/.cache/bazel"
           key: bazel
 
+      - name: Install NodeJS dependencies
+        run: pnpm install
+
+      - name: Build with Bazel
+        run: bazel build //tools:build_packages --runs_on=linux
+
+      - name: Run tests with Bazel
+        run: bazel test //tools:test_linux_packages
+
+  test-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Install XCode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
 
-      - name: Install NodeJS dependencies
-        run: pnpm install
+      - name: Install Bazelisk
+        uses: bazelbuild/setup-bazelisk@v2
 
       - name: Build with Bazel
-        run: bazel build //...
+        run: bazel build //tools:build_packages --runs_on=macos
 
-      - name: Run tests with Bazel
-        run: bazel test //...
+#     No tests for macos yet
+#      - name: Run tests with Bazel
+#        run: bazel test //tools:test_macos_packages

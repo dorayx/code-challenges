@@ -1,0 +1,52 @@
+load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
+
+string_flag(
+    name = "runs_on",
+    build_setting_default = "linux",
+    values = [
+        "linux",
+        "macos",
+    ],
+)
+
+config_setting(
+    name = "linux-packages",
+    flag_values = {
+        "//tools:runs_on": "linux",
+    },
+)
+
+config_setting(
+    name = "macos-packages",
+    flag_values = {
+        "//tools:runs_on": "macos",
+    },
+)
+
+filegroup(
+    name = "build_packages",
+    srcs = select({
+        ":macos-packages": [
+            "//challenges/day-03:build",
+        ],
+        "//conditions:default": [
+            "//challenges/day-01:build",
+            "//challenges/day-02:build",
+        ],
+    }),
+)
+
+# Unfortunately `tests` parameter is not allowed to work with `select`
+# @see https://github.com/bazelbuild/bazel/issues/11455
+test_suite(
+    name = "test_linux_packages",
+    tests = [
+        "//challenges/day-01:ut_test",
+        "//challenges/day-02:ut_test",
+    ],
+)
+
+test_suite(
+    name = "test_macos_packages",
+    tests = [],
+)

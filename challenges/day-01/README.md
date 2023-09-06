@@ -12,8 +12,8 @@ Initialize this repository as a monorepo using Bazel for multi-language developm
 ## Getting Started
 
 ```bash
-bazel run //challenges/day-01:day_01
-bazel test //challenges/day-01:day_01_test
+bazel run //challenges/day-01:build
+bazel test //challenges/day-01:ut_test
 ```
 
 ## References

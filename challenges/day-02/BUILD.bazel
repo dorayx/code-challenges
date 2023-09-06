@@ -1,11 +1,12 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:vite/package_json.bzl", vite_bin = "bin")
+load("@npm//:vitest/package_json.bzl", vitest_bin = "bin")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 # See https://docs.aspect.build/rules/aspect_rules_js/docs/pnpm
 npm_link_all_packages(name = "node_modules")
 
-load("@npm//:vite/package_json.bzl", vite_bin = "bin")
-load("@npm//:vitest/package_json.bzl", vitest_bin = "bin")
+package(default_visibility = ["//visibility:public"])
 
 filegroup(
     name = "config",
@@ -54,7 +55,7 @@ vite_bin.vite(
 )
 
 vitest_bin.vitest_test(
-    name = "test",
+    name = "ut_test",
     args = [
         "run",
     ],
@@ -66,4 +67,5 @@ vitest_bin.vitest_test(
         ":vite_srcs_export",
         ":vite_srcs_tests",
     ],
+    visibility = ["//visibility:public"],
 )
