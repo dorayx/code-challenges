@@ -1,4 +1,11 @@
-# 15-Day Coding Challenges
+# Code Challenges
+
+Web development evolves fast, and it's hard to keep up with all the new technologies and tools.
+I made this repository as a collection of code challenges, doing some experiment with fresh ideas, new techs and tools.
+In general, the code challenges aren't tailored for technical interviews but designed for fun and learning, so you might not find the best practices here,
+and the projects here are all experimental, not always complete and not production-ready.
+
+I've tracked my practices in the table below:
 
 | Day | Date       | Challenge                                                                                                                                                           | Keywords                      | Link                                      |
 |-----|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|-------------------------------------------|
