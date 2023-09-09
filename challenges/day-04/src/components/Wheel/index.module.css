@@ -1,0 +1,68 @@
+.container {
+    height: 100%;
+
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+
+    display: flex;
+    flex-direction: column;
+    align-self: self-start;
+}
+
+.wrapper {
+    height: calc(3.8rem * 2);
+    position: relative;
+}
+
+.wrapper::before, .wrapper::after {
+    --dark-stop: rgba(36, 36, 36, 1) 2%;
+    --light-stop: rgba(36, 36, 36, 0) 100%;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2.9rem;
+}
+
+.wrapper::before {
+    background-image: linear-gradient(to bottom, var(--dark-stop), var(--light-stop));
+    top: 0;
+}
+
+.wrapper::after {
+    background-image: linear-gradient(to top, var(--dark-stop), var(--light-stop));
+    bottom: 0;
+}
+
+.withHiddeScrollbar {
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+.withHiddeScrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.option {
+    display: block;
+    scroll-snap-align: center;
+    height: 3.8rem;
+    user-select: none;
+}
+
+.activeOption {
+    user-select: auto;
+}
+
+.placeholderOption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cloak {
+    visibility: hidden;
+    z-index: -9999;
+}
+

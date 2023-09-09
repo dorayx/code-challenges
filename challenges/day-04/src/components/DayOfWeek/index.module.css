@@ -1,0 +1,13 @@
+.container {
+
+}
+
+.dayOfWeekLabel {
+    --col: 1;
+    --row: 1;
+}
+
+.dayOfWeekText {
+    --col: 1;
+    --row: 2;
+}

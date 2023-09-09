@@ -1,0 +1,71 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:vite/package_json.bzl", vite_bin = "bin")
+load("@npm//:vitest/package_json.bzl", vitest_bin = "bin")
+
+# This macro expands to a link_npm_package for each third-party package in package.json
+# See https://docs.aspect.build/rules/aspect_rules_js/docs/pnpm
+npm_link_all_packages(name = "node_modules")
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "config",
+    srcs = [
+        "index.html",
+        "package.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts",
+    ],
+)
+
+filegroup(
+    name = "vite_srcs_export",
+    srcs = glob(["src/**/*"]),
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "vite_public_export",
+    srcs = glob(["public/**/*"]),
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "vite_srcs_tests",
+    srcs = glob([
+        "src/**/*.spec.ts",
+        "tests/**/*",
+    ]),
+    visibility = ["//visibility:public"],
+)
+
+vite_bin.vite(
+    name = "build",
+    srcs = [
+        ":config",
+        ":node_modules",
+        ":vite_public_export",
+        ":vite_srcs_export",
+    ],
+    args = ["build"],
+    chdir = package_name(),
+    out_dirs = ["dist"],
+    visibility = ["//visibility:public"],
+)
+
+vitest_bin.vitest_test(
+    name = "ut_test",
+    args = [
+        "run",
+    ],
+    chdir = package_name(),
+    data = [
+        ":config",
+        ":node_modules",
+        ":vite_public_export",
+        ":vite_srcs_export",
+        ":vite_srcs_tests",
+    ],
+    visibility = ["//visibility:public"],
+)

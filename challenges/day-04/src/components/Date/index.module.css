@@ -1,0 +1,36 @@
+.container {
+
+}
+
+.yearLabel {
+    --col: 1;
+    --row: 1;
+    width: 12rem;
+}
+
+.yearText {
+    --col: 1;
+    --row: 2;
+}
+
+.monthLabel {
+    --col: 2;
+    --row: 1;
+    min-width: 6rem;
+}
+
+.monthText {
+    --col: 2;
+    --row: 2;
+}
+
+.dayLabel {
+    --col: 3;
+    --row: 1;
+    min-width: 6rem;
+}
+
+.dayText {
+    --col: 3;
+    --row: 2;
+}

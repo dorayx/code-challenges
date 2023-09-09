@@ -1,0 +1,29 @@
+.container {
+    --grid-gap: .1rem 2.2rem;
+    --grid-template-columns: 2fr 1fr 1fr;
+}
+
+.component {
+    --grid-gap: 1rem 1.2rem;
+}
+
+.label {
+    user-select: none;
+
+    font-size: .8rem;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: .15rem;
+
+    justify-content: center;
+    align-items: center;
+    align-self: self-start;
+}
+
