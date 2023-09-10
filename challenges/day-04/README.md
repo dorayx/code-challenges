@@ -15,7 +15,7 @@ Use CSS Scroll Snap to create a clock which showcases the following time details
 
 Requirements:
 
-- [ ] This clock initially displays the user's local time
+- [x] This clock initially displays the user's local time
 - [x] The user is able to scroll to adjust the time
 
 TODO:

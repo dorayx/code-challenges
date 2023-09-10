@@ -13,6 +13,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --wheel-background-dark-stop: rgba(36, 36, 36, 1) 2%;
+  --wheel-background-light-stop: rgba(36, 36, 36, 0) 100%;
 }
 
 a {
@@ -37,7 +40,11 @@ body {
   :root {
     color: #213547;
     background-color: #ffffff;
+
+    --wheel-background-dark-stop: rgba(255, 255, 255, 1) 2%;
+    --wheel-background-light-stop: rgba(255, 255, 255, 0) 100%;
   }
+
   a:hover {
     color: #747bff;
   }

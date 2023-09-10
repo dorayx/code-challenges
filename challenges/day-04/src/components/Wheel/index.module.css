@@ -1,3 +1,9 @@
+:root {
+    /** The following variables are used to control the background gradient of the wheel */
+    --wheel-background-dark-stop: transparent;
+    --wheel-background-light-stop: transparent;
+}
+
 .container {
     height: 100%;
 
@@ -16,22 +22,20 @@
 }
 
 .wrapper::before, .wrapper::after {
-    --dark-stop: rgba(36, 36, 36, 1) 2%;
-    --light-stop: rgba(36, 36, 36, 0) 100%;
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    height: 2.9rem;
+    height: 2.4rem;
 }
 
 .wrapper::before {
-    background-image: linear-gradient(to bottom, var(--dark-stop), var(--light-stop));
+    background-image: linear-gradient(to bottom, var(--wheel-background-dark-stop), var(--wheel-background-light-stop));
     top: 0;
 }
 
 .wrapper::after {
-    background-image: linear-gradient(to top, var(--dark-stop), var(--light-stop));
+    background-image: linear-gradient(to top, var(--wheel-background-dark-stop), var(--wheel-background-light-stop));
     bottom: 0;
 }
 

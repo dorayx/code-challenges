@@ -1,5 +1,6 @@
 import { type FC, useCallback, useState } from 'react';
 import cx from 'classnames';
+import dayjs from 'dayjs';
 import { Grid } from '../Grid';
 import { type IStyleable } from '../../utils/types.ts';
 import { Date } from '../Date';
@@ -16,14 +17,16 @@ const shareStyles = {
 };
 
 export const Clock: FC<IClockProps> = ({ className }) => {
-  const [year, setYear] = useState(2023);
-  const [month, setMonth] = useState(9);
-  const [day, setDay] = useState(9);
+  const [currentDay] = useState(dayjs());
 
-  const [dayOfWeek, setDayOfWeek] = useState(6);
+  const [year, setYear] = useState(currentDay.year());
+  const [month, setMonth] = useState(currentDay.month() + 1);
+  const [day, setDay] = useState(currentDay.date());
 
-  const [hour, setHour] = useState(3);
-  const [minute, setMinute] = useState(30);
+  const [dayOfWeek, setDayOfWeek] = useState(currentDay.day());
+
+  const [hour, setHour] = useState(currentDay.hour());
+  const [minute, setMinute] = useState(currentDay.minute());
 
   const onYearChange = useCallback((year: number) => setYear(year), []);
   const onMonthChange = useCallback((month: number) => setMonth(month), []);
