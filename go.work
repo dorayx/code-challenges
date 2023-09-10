@@ -1,0 +1,6 @@
+go 1.21
+
+use (
+	./challenges/day-05/hello
+	./challenges/day-05/main
+)

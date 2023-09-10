@@ -1,5 +1,17 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
+#exports_files([
+#    "DEPS.bzl",
+#    "WORKSPACE",
+#    "go.mod",
+#    "go.sum",
+#])
+
+# NodeJS
 # This macro expands to a link_npm_package for each third-party package in package.json
 # See https://docs.aspect.build/rules/aspect_rules_js/docs/pnpm
 npm_link_all_packages(name = "node_modules")
+
+# Go
+gazelle(name = "gazelle")

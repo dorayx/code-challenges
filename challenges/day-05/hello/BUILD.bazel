@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "lib",
+    srcs = ["hello.go"],
+    importpath = "github.com/dorayx/code-challenges/day-05/hello",
+    visibility = ["//visibility:public"],
+    deps = [],
+)
+
+go_test(
+    name = "ut_test",
+    srcs = [
+        "hello.go",
+        "hello_test.go",
+    ],
+)

@@ -43,6 +43,28 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "278b7ff5a826f3dc10f04feaf0b70d48b68748ccd512d7f98bf442077f043fe3",
+    urls = [
+        "http://bazel-cache.pingcap.net:8080/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+        "http://ats.apps.svc/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.41.0/rules_go-v0.41.0.zip",
+    ],
+)
+
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "b8b6d75de6e4bf7c41b7737b183523085f56283f6db929b86c5e7e1f09cf59c9",
+    urls = [
+        "http://bazel-cache.pingcap.net:8080/bazelbuild/bazel-gazelle/releases/download/v0.31.1/bazel-gazelle-v0.31.1.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.31.1/bazel-gazelle-v0.31.1.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.31.1/bazel-gazelle-v0.31.1.tar.gz",
+        "http://ats.apps.svc/bazelbuild/bazel-gazelle/releases/download/v0.31.1/bazel-gazelle-v0.31.1.tar.gz",
+    ],
+)
+
 ######################
 # Rust rules
 ######################
@@ -141,3 +163,27 @@ apple_support_dependencies()
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
 bazel_skylib_workspace()
+
+######################
+# Go Lang
+######################
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_download_sdk", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
+go_rules_dependencies()
+
+go_download_sdk(
+    name = "go_sdk",
+    urls = [
+        "http://ats.apps.svc/golang/{}",
+        "http://bazel-cache.pingcap.net:8080/golang/{}",
+        "https://mirrors.aliyun.com/golang/{}",
+        "https://dl.google.com/go/{}",
+    ],
+    version = "1.21.0",
+)
+
+go_register_toolchains()
+
+gazelle_dependencies()
