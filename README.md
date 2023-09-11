@@ -1,5 +1,8 @@
 # Code Challenges
 
+[![Test](https://github.com/dorayx/code-challenges/actions/workflows/test.yml/badge.svg)](https://github.com/dorayx/code-challenges/actions/workflows/test.yml)
+[![GitHub Pages](https://github.com/dorayx/code-challenges/actions/workflows/github-pages.yml/badge.svg)](https://github.com/dorayx/code-challenges/actions/workflows/github-pages.yml)
+
 Web development evolves fast, and it's hard to keep up with all the new technologies and tools.
 I made this repository as a collection of code challenges, doing some experiment with fresh ideas, new techs and tools.
 In general, the code challenges aren't tailored for technical interviews but designed for fun and learning, so you might not find the best practices here,
