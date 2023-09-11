@@ -1,0 +1,13 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+
+copy_to_directory(
+    name = "github-pages",
+    srcs = [
+        "//challenges/day-06:build",
+    ],
+    out = "artifacts",
+    allow_overwrites = True,
+    root_paths = [
+        "challenges/day-06",
+    ],
+)

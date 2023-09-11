@@ -34,6 +34,7 @@ filegroup(
             "//challenges/day-02:build",
             "//challenges/day-04:build",
             "//challenges/day-05/main:build",
+            "//challenges/day-06:build",
         ],
     }),
 )
@@ -47,6 +48,7 @@ test_suite(
         "//challenges/day-02:ut_test",
         "//challenges/day-04:ut_test",
         "//challenges/day-05/hello:ut_test",
+        "//challenges/day-06:ut_test",
     ],
 )
 

@@ -103,6 +103,7 @@ npm_translate_lock(
     data = [
         "@//:challenges/day-02/package.json",
         "@//:challenges/day-04/package.json",
+        "@//:challenges/day-06/package.json",
         "@//:package.json",
         "@//:pnpm-workspace.yaml",
     ],
