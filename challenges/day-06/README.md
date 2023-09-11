@@ -28,7 +28,7 @@ bazel test //challenges/day-06:ut_test
 ## Build Assets
 
 - The output directory is `/canary`
-- The public assets path is `/canary`
+- The public assets path is `/code-challenges/canary`
 
 ## References
 

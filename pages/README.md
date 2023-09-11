@@ -10,3 +10,8 @@ bazel build //pages:github-pages
 ```
 
 It requires to update `pages/BUILD.bazel` to add new pages or remove pages.
+
+## Notices
+
+- The domain is `https://dorayx.github.io`
+- The base path is `/code-challenges`
